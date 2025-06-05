@@ -1,0 +1,158 @@
+/* Reset defaults */
+body, h1, p, input, button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body and main container */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Title forced into two lines */
+.title {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+/* Input + Button */
+.input-container {
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 12px;
+  font-size: 1.1rem;
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Dynamic area reserves vertical space to prevent shifting */
+.dynamic-area {
+  height: 240px; /* Enough for loading bar + second GIF + steps/reveal */
+  position: relative;
+}
+
+/* Center-loading bar wrapper */
+.loading-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+/* Loading bar container */
+.loading-container {
+  width: 100%;
+  max-width: 400px;
+  height: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  display: none;
+  margin: 0 auto 10px;
+}
+
+.loading-bar {
+  width: 0;
+  height: 100%;
+  background-color: green;
+  transition: width 8s linear;
+}
+
+/* Second loading GIF styling (under loading bar) */
+/* Attempt to "remove" green screen via mix-blend-mode on a light background */
+.loading-gif-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.loading-gif {
+  width: 80px;
+  display: none;
+  mix-blend-mode: multiply; /* hides green against a light grey background */
+}
+
+/* Steps and reveal share same space, centered vertically */
+.reading-steps,
+.reveal-text {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.reading-steps .step {
+  font-size: 1.2rem;
+  display: none;
+  margin: 0;
+}
+
+.reveal-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  display: none;
+}
+
+/* Explosion GIF styling */
+.explosion-gif {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  display: none;
+  z-index: 10;
+  animation: fadeInOut 2s forwards;
+  pointer-events: none; /* so it doesn't block clicks when invisible */
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    visibility: visible;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

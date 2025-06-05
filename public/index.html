@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pick any number you want. I will read your mind.</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Title forced into two lines -->
+    <h1 class="title">
+      Pick any number you want.<br />
+      I will read your mind.
+    </h1>
+
+    <!-- Input Box and Button -->
+    <div class="input-container">
+      <input type="number" id="userInput" placeholder="Enter your number" />
+      <button onclick="readMyMind()">Read My Mind!</button>
+    </div>
+
+    <!-- Reserved dynamic area to prevent shifting -->
+    <div class="dynamic-area">
+      <!-- Loading Bar -->
+      <div class="loading-wrapper">
+        <div class="loading-container" id="loadingContainer">
+          <div id="loadingBar" class="loading-bar"></div>
+        </div>
+      </div>
+
+      <!-- Second loading GIF under the bar -->
+      <div class="loading-gif-wrapper">
+        <img
+          id="loadingGif"
+          src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnJmZHl4YXZxYTBwdzFxc2IyNmwwMHRqbnJ1MGJ5OHVzdzlzdGpvYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/ztisqLhP99tVSHG136/giphy.gif"
+          alt="Loading..."
+          class="loading-gif"
+        />
+      </div>
+
+      <!-- Mind Reading Steps -->
+      <div class="reading-steps">
+        <p id="step1" class="step">READING YOUR MIND...</p>
+        <p id="step2" class="step">ANALYZING BRAIN PATTERN...</p>
+        <p id="step3" class="step">CONNECTING TO YOUR BRAIN VIA BLUETOOTH...</p>
+        <p id="step4" class="step">CALCULATING X POSSIBLE COMBINATIONS...</p>
+      </div>
+
+      <!-- Final Reveal -->
+      <p id="revealText" class="reveal-text"></p>
+    </div>
+  </div>
+
+  <!-- Restored original explosion GIF (transparent background) -->
+  <img
+    id="explosionGif"
+    src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXpjcmkyZWZkNGdqNjd1ZjV2Zzg0aTFnd3g1OWpuaDlwMHZoZWI5diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/ibjOWWBs0x3c2syap9/giphy.gif"
+    alt="Explosion"
+    class="explosion-gif"
+  />
+
+  <script src="script.js"></script>
+</body>
+</html>
