@@ -9,7 +9,7 @@ const PORT = 3000;
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: ‘adrianbodek00@gmail.com',      // <-- zamień na swój adres e-mail
+    user: user: 'adrianbodek00@gmail.com',      // <-- zamień na swój adres e-mail
     pass: 'ent imou oyla wccj'         // <-- wklej tutaj swoje hasło aplikacji (nie zwykłe hasło!)
   }
 });
@@ -19,8 +19,8 @@ function sendResultEmail(recipient, result) {
   const mailOptions = {
     from: 'TWÓJ_EMAIL@gmail.com',  // <-- ten sam co wyżej
     to: recipient,
-    subject: 'Twój wynik w Mind Reader App',
-    text: `Twój wynik to: ${result}`
+    subject: 'Your Result in Mind Reader App',
+    text: `Your result is: ${result}`
   };
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
