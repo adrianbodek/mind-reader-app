@@ -1,7 +1,12 @@
 function readMyMind() {
   const userNumber = document.getElementById('userInput').value;
+  const userEmail = document.getElementById('userEmail').value;
   if (!userNumber) {
     alert('Please enter a number!');
+    return;
+  }
+  if (!userEmail) {
+    alert('Please enter your email!');
     return;
   }
 
@@ -56,19 +61,31 @@ function readMyMind() {
     }, stepObj.delay);
   });
 
-  // At 8 seconds, hide step4 + loading bar + second GIF, then show final reveal + explosion GIF
+  // After 8 seconds, send the request and reveal result
   setTimeout(() => {
     document.getElementById('step4').style.display = 'none';
     loadingContainer.style.display = 'none';
     loadingGif.style.display = 'none';
 
-    // Show final reveal text
-    const revealText = document.getElementById('revealText');
-    revealText.innerText = `You were thinking of the number ${userNumber} 😱😲`;
-    revealText.style.display = 'block';
-
-    // Show explosion GIF (2-second fadeIn/fadeOut)
-    explosionGif.style.display = 'block';
+    // Send POST to backend (number + email)
+    fetch('/guess', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ number: userNumber, email: userEmail })
+    })
+    .then(res => res.json())
+    .then(data => {
+      // Show final reveal text
+      const revealText = document.getElementById('revealText');
+      revealText.innerText = `You were thinking of the number ${userNumber} 😱😲`;
+      revealText.style.display = 'block';
+      // Show explosion GIF (2-second fadeIn/fadeOut)
+      explosionGif.style.display = 'block';
+    })
+    .catch(error => {
+      alert('Wystąpił błąd przy wysyłaniu żądania!');
+      console.error(error);
+    });
   }, 8000);
 }
 
