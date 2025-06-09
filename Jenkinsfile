@@ -3,7 +3,8 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'mind-reader-app'
-        IMAGE_TAG = "${BUILD_NUMBER}"
+        // Automatyczna wersja: numer builda + skrót commita
+        IMAGE_TAG = "${BUILD_NUMBER}-${GIT_COMMIT.take(7)}"
     }
 
     stages {
@@ -32,6 +33,7 @@ pipeline {
             steps {
                 sh "docker stop ${IMAGE_NAME} || true"
                 sh "docker rm ${IMAGE_NAME} || true"
+                // Uruchamiamy kontener z wersją latest, ale możesz też podmienić na IMAGE_TAG
                 sh "docker run -d --name ${IMAGE_NAME} -p 3000:3000 ${IMAGE_NAME}:latest"
             }
         }
@@ -41,11 +43,12 @@ pipeline {
             sh 'docker image prune -f'
         }
         success {
-            echo 'Pipeline succeeded!'
+            echo "Pipeline succeeded! Version: ${IMAGE_TAG}"
             emailext (
                 subject: "Jenkins SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                 body: """Gratulacje! Build zakończony sukcesem.
 
+Wersja obrazu: ${IMAGE_TAG}
 Sprawdź szczegóły: ${env.BUILD_URL}
 
 Pozdrawiam,
@@ -55,11 +58,12 @@ Twój Jenkins
             )
         }
         failure {
-            echo 'Pipeline failed!'
+            echo "Pipeline failed! Version: ${IMAGE_TAG}"
             emailext (
                 subject: "Jenkins FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                 body: """Build zakończył się błędem!
 
+Wersja obrazu: ${IMAGE_TAG}
 Sprawdź szczegóły: ${env.BUILD_URL}
 
 Pozdrawiam,
