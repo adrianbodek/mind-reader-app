@@ -9,15 +9,15 @@ const PORT = 3000;
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'adrianbodek00@gmail.com',      // <-- zamień na swój adres e-mail
-    pass: 'ztwt nadz foyq pcvm'         // <-- wklej tutaj swoje hasło aplikacji (nie zwykłe hasło!)
+    user: 'adrianbodek00@gmail.com',
+    pass: 'ztwt nadz foyq pcvm'
   }
 });
 
 // Funkcja wysyłająca maila z wynikiem
 function sendResultEmail(recipient, result) {
   const mailOptions = {
-    from: 'adrianbodek00@gmail.com',  // <-- ten sam co wyżej
+    from: 'adrianbodek00@gmail.com',
     to: recipient,
     subject: 'Your Result in Mind Reader App',
     text: `Your result is: ${result}`
@@ -41,9 +41,12 @@ app.post('/guess', (req, res) => {
 
   // Symulacja myślenia przez 10 sekund
   setTimeout(() => {
-    if (email) sendResultEmail(email, number);
-    res.send({ guess: number });
-  }, 10000); // 10-sekundowe opóźnienie
+    res.send({ guess: number }); // Najpierw wysyłamy odpowiedź do użytkownika!
+    if (email) {
+      // Wysyłka maila asynchronicznie, już po wysłaniu odpowiedzi
+      sendResultEmail(email, number);
+    }
+  }, 10000); // 10-sekundowe opóźnienie (animacja)
 });
 
 // Start serwera
