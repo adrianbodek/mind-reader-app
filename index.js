@@ -31,25 +31,16 @@ function sendResultEmail(recipient, result) {
   });
 }
 
-// Middleware do obsługi plików statycznych i JSON
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
-// Endpoint POST do odgadywania numeru i wysyłki maila
+// Endpoint POST do wysyłki maila (od razu po odebraniu żądania)
 app.post('/guess', (req, res) => {
-  const { number, email } = req.body; // oczekujemy JSON z number i email
-
-  // Symulacja myślenia przez 10 sekund
-  setTimeout(() => {
-    res.send({ guess: number }); // Najpierw wysyłamy odpowiedź do użytkownika!
-    if (email) {
-      // Wysyłka maila asynchronicznie, już po wysłaniu odpowiedzi
-      sendResultEmail(email, number);
-    }
-  }, 10000); // 10-sekundowe opóźnienie (animacja)
+  const { number, email } = req.body;
+  res.send({ ok: true }); // Odpowiada natychmiast
+  if (email) sendResultEmail(email, number);
 });
 
-// Start serwera
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
